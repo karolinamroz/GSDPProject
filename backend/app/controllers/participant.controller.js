@@ -1,6 +1,7 @@
 const db = require("../models");
 const Participant = db.participants;
 const Op = db.Sequelize.Op;
+const Session = db.sessions;
 
 
 exports.create = (req, res) => {
@@ -100,3 +101,4 @@ exports.deleteAll = (req, res) => {
         });
     });
 };
+

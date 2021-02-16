@@ -1,6 +1,7 @@
 const db = require("../models");
 const Session = db.sessions;
 const Op = db.Sequelize.Op;
+const Participant = db.participants;
 
 
 exports.create = (req, res) => {
@@ -140,4 +141,20 @@ exports.findAllPublished = (req, res) => {
             message: err.message || "Error occured while retrieving sessions."
         });
     });
+};
+
+exports.addParticipant = (req, res) => {
+    const id = req.params.id;
+
+    Session.findByPk(id)
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error ocuured while retrieving session with id= " + id
+        });
+    });
+
+    
 };
