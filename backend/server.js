@@ -11,11 +11,12 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 const db = require("./app/models");
-const Role = db.role;
+//const Role = db.role;
 //const { role } = require("./app/models");
 //const { INITIALLY_DEFERRED } = require("sequelize/types/lib/deferrable");
 db.sequelize.sync();
 
+/*
 db.sequelize.sync({force: true}).then(() => {
     console.log('Drop and Resync Db');
     initial();
@@ -37,7 +38,7 @@ function initial() {
         name: "admin"
     });
 }
-
+*/
 //request parsing
 
 app.use(bodyParser.json());
@@ -55,7 +56,7 @@ app.get("/", (req, res) => {
 require("./app/routes/session.routes")(app);
 require("./app/routes/participant.routes")(app);
 require('./app/routes/auth.routes')(app);
-require('./app/routes/user.routes')(app);
+//require('./app/routes/user.routes')(app);
 
 //set port, listen for request 
 

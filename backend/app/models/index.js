@@ -21,8 +21,8 @@ db.sequelize = sequelize;
 
 db.sessions = require("./session.model.js")(sequelize, Sequelize);
 db.participants = require("./participant.model.js")(sequelize, Sequelize);
-db.user = require("./user.model.js")(sequelize, Sequelize);
-db.role = require("./role.model.js")(sequelize, Sequelize);
+//db.user = require("./user.model.js")(sequelize, Sequelize);
+//db.role = require("./role.model.js")(sequelize, Sequelize);
 /*
 db.sessions.belongsToMany(db.participants, {
     through: "sessions_participants",

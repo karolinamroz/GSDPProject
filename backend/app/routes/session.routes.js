@@ -24,8 +24,6 @@ module.exports = app => {
     //delete all sessions 
     router.delete("/", sessions.deleteAll);
 
-    router.post("/",sessions.addParticipant);
-
     app.use('/api/sessions', router);
 
 };

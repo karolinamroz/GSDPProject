@@ -5,7 +5,7 @@ const Session = db.sessions;
 
 
 exports.create = (req, res) => {
-    if(!req.body.subject) {
+    if(!req.body.name) {
             res.status(400).send({
                 message: "Content cannot be empty!"
             });
@@ -15,6 +15,7 @@ exports.create = (req, res) => {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
+        role: req.body.role
     };
 
     Participant.create(participant)
@@ -102,3 +103,27 @@ exports.deleteAll = (req, res) => {
     });
 };
 
+exports.update = (req, res) => {
+    const id = req.params.id;
+
+    Participant.update(req.body, {
+        where: { id: id }
+    })
+
+    .then(num => {
+        if (num == 1) {
+            res.send({
+                message: "Details were updated successfully."
+            });
+        } else {
+            res.send({
+                message: `Cannot update details for participant with id=${id}.`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: `Error updating details for participant with id="` + id
+        });
+    });
+};

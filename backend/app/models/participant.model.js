@@ -7,6 +7,12 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING
         },
         phone: {
+            type: Sequelize.INTEGER
+        },
+        role: {
+            type: Sequelize.INTEGER
+        },
+        password: {
             type: Sequelize.STRING
         }
     });

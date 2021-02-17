@@ -18,6 +18,8 @@ module.exports = app => {
     //delete all participants
     router.delete("/", participants.deleteAll);
 
-    app.use('/api/sessions', router);
+    router.put("/:id", participants.update);
+
+    app.use('/api/participants', router);
 
 };
