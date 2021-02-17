@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ParticipantsDataService from "../services/participants.service";
+import ParticipantDataService from "../services/participants.service";
 import { Link } from "react-router-dom";
 
 export default class SignUp extends Component {
@@ -44,7 +44,7 @@ export default class SignUp extends Component {
             phone: this.state.phone
         };
 
-        ParticipantsDataService.create(data)
+        ParticipantDataService.create(data)
         .then(response => {
             this.setState({
                 id: response.data.id,

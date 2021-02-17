@@ -20,11 +20,9 @@ export default class SessionsList extends Component {
         };
     }
 
-    /*
     componentDidMount() {
         this.retrieveSessions();
     }
-    */
 
     onChangeSearchSubject(e) {
         const searchSubject = e.target.value;
