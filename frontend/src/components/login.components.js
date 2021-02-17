@@ -4,46 +4,22 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-export default class AddParticipant extends Component {
+export default class Login extends Component {
     constructor(props) {
         super(props);
-        this.onChangeName = this.onChangeName.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
-        this.onChangePhone = this.onChangePhone.bind(this);
-        this.onChangeRole = this.onChangeRole.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
 
         this.state = {
             id: null,
-            name: "",
             email: "",
-            phone: "",
-            role: "",
-            password: "",
+            password: ""
         };
-    }
-
-    onChangeName(e) {
-        this.setState({
-            name: e.target.value
-        });
     }
 
     onChangeEmail(e) {
         this.setState({
             email: e.target.value
-        });
-    }
-
-    onChangePhone(e) {
-        this.setState({
-            phone: e.target.value
-        });
-    }
-
-    onChangeRole(e) {
-        this.setState({
-            role: e.target.value
         });
     }
 
@@ -102,27 +78,6 @@ export default class AddParticipant extends Component {
     
               <Form>
                   <div>
-                    <div className="form-group">
-                      <label htmlFor="username">Name</label>
-                      <Input
-                        type="text"
-                        className="form-control"
-                        name="username"
-                        value={this.state.name}
-                        onChange={this.onChangeName}
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="password">Phone</label>
-                      <Input
-                        type="password"
-                        className="form-control"
-                        name="password"
-                        value={this.state.phone}
-                        onChange={this.onChangePhone}
-                      />
-                    </div>
     
                     <div className="form-group">
                       <label htmlFor="email">Email</label>
@@ -147,13 +102,13 @@ export default class AddParticipant extends Component {
                     </div>
     
                     <div className="form-group">
-                      <button className="btn btn-primary btn-block">Sign Up</button>
+                      <button className="btn btn-primary btn-block">Log In</button>
                     </div>
                   </div>
     
                 <CheckButton
                   style={{ display: "none" }}
-                  onClick={this.saveParticipant}
+                  onClick={this.saveParticipant} //no
                 />
               </Form>
             </div>
