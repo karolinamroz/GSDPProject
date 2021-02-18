@@ -1,42 +1,44 @@
 import React, { Component } from "react";
-import SessionDataService from "../services/session.service";
+import ParticipantsDataService from "../services/participants.service";
 import { Link } from "react-router-dom";
 
-export default class SessionsList extends Component {
+export default class ParticipantsList extends Component {
     constructor(props) {
         super(props);
-        this.onChangeSearchSubject = this.onChangeSearchSubject.bind(this);
-        this.retrieveSessions = this.retrieveSessions.bind(this);
+        this.onChangeSearchName = this.onChangeSearchName.bind(this);
+        this.retrieveParticipants = this.retrieveParticipants.bind(this);
         this.refreshList = this.refreshList.bind(this);
-        this.setActiveSession = this.setActiveSession.bind(this);
-        this.removeAllSessions = this.removeAllSessions.bind(this);
-        this.searchSubject = this.searchSubject.bind(this);
+        this.setActiveParticipant = this.setActiveParticipant.bind(this);
+        this.removeAllParticipants = this.removeAllParticipants.bind(this);
+        this.searchName = this.searchName.bind(this);
 
         this.state = {
-            sessions: [],
-            currentSession: null,
+            participants: [],
+            currentParticipant: null,
             currentIndex: -1,
-            searchSubject: ""
+            searchName: ""
         };
     }
-
+    
+    
     componentDidMount() {
-        this.retrieveSessions();
+        this.retrieveParticipants();
     }
+    
 
-    onChangeSearchSubject(e) {
-        const searchSubject = e.target.value;
+    onChangeSearchName(e) {
+        const searchName = e.target.value;
 
         this.setState({
-            searchSubject: searchSubject
+            searchName: searchName
         });
     }
 
-    retrieveSessions() {
-        SessionDataService.getAll()
+    retrieveParticipants() {
+        ParticipantsDataService.getAll()
         .then(response => {
             this.setState({
-                sessions: response.data
+                participants: response.data
             });
             console.log(response.data);
         })
@@ -46,22 +48,22 @@ export default class SessionsList extends Component {
     }
 
     refreshList() {
-        this.retrieveSessions();
+        this.retrieveParticipants();
         this.setState({
-            currentSession: null,
+            currentParticipant: null,
             currentIndex: -1
         });
     }
 
-    setActiveSession(session, index) {
+    setActiveParticipant(participant, index) {
         this.setState({
-            currentSession: session,
+            currentParticipant: participant,
             currentIndex: index
         });
     }
 
-    removeAllSessions() {
-        SessionDataService.deleteAll()
+    removeAllParticipants() {
+        ParticipantsDataService.deleteAll()
         .then(response => {
             console.log(response.data);
             this.refreshList();
@@ -71,16 +73,16 @@ export default class SessionsList extends Component {
         });
     }
 
-    searchSubject() {
+    searchName() {
         this.setState({
-            currentSession: null,
+            currentName: null,
             currentIndex: -1
         });
 
-        SessionDataService.findBySubject(this.state.searchSubject)
+        ParticipantsDataService.findByName(this.state.searchName)
         .then(response => {
             this.setState({
-                sessions: response.data
+                participants: response.data
             });
             console.log(response.data);
         })
@@ -90,7 +92,7 @@ export default class SessionsList extends Component {
     }
 
     render() {
-        const { searchSubject, sessions, currentSession, currentIndex } = this.state;
+        const { searchName, participants, currentParticipant, currentIndex } = this.state;
 
         return (
             <div className="list row">
@@ -99,15 +101,15 @@ export default class SessionsList extends Component {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Search by subject"
-                    value={searchSubject}
-                    onChange={this.onChangeSearchSubject}
+                    placeholder="Search by name"
+                    value={searchName}
+                    onChange={this.onChangeSearchName}
                   />
                   <div className="input-group-append">
                     <button
                       className="btn btn-outline-secondary"
                       type="button"
-                      onClick={this.searchSubject}
+                      onClick={this.searchName}
                     >
                       Search
                     </button>
@@ -115,91 +117,79 @@ export default class SessionsList extends Component {
                 </div>
               </div>
               <div className="col-md-6">
-                <h4>Sessions List</h4>
+                <h4>Participants List</h4>
       
                 <ul className="list-group">
-                  {sessions &&
-                    sessions.map((session, index) => (
+                  {participants &&
+                    participants.map((participant, index) => (
                       <li
                         className={
                           "list-group-item " +
                           (index === currentIndex ? "active" : "")
                         }
-                        onClick={() => this.setActiveSession(session, index)}
+                        onClick={() => this.setActiveParticipant(participant, index)}
                         key={index}
                       >
-                        {session.subject}
+                        {participant.name}
                       </li>
                     ))}
                 </ul>
       
                 <button
                   className="m-3 btn btn-sm btn-danger"
-                  onClick={this.removeAllSessions}
+                  onClick={this.removeAllParticipants}
                 >
                   Remove All
                 </button>
               </div>
               <div className="col-md-6">
-                {currentSession ? (
+                {currentParticipant ? (
                   <div>
-                    <h4>Session</h4>
+                    <h4>Participant</h4>
                     <div>
                       <label>
-                        <strong>Subject:</strong>
+                        <strong>Name:</strong>
                       </label>{" "}
-                      {currentSession.subject}
+                      {currentParticipant.name}
                     </div>
                     <div>
                       <label>
-                        <strong>Department:</strong>
+                        <strong>Email:</strong>
                       </label>{" "}
-                      {currentSession.department}
+                      {currentParticipant.email}
                     </div>
                     <div>
                       <label>
-                        <strong>Type:</strong>
+                        <strong>Phone:</strong>
                       </label>{" "}
-                      {currentSession.type}
+                      {currentParticipant.phone}
                     </div>
                     <div>
                       <label>
-                        <strong>Start:</strong>
+                        <strong>Role:</strong>
                       </label>{" "}
-                      {currentSession.start}
+                      {currentParticipant.role}
                     </div>
                     
                     <div>
                       <label>
-                        <strong>Finish:</strong>
+                        <strong>Password:</strong>
                       </label>{" "}
-                      {currentSession.finish}
+                      {currentParticipant.password}
                     </div>
-                    <div>
-                      <label>
-                        <strong>Venue:</strong>
-                      </label>{" "}
-                      {currentSession.venue}
-                   </div>
-                    <div>
-                      <label>
-                        <strong>Status:</strong>
-                      </label>{" "}
-                      {currentSession.published ? "Published" : "Pending"}
-                    </div>
-      
+
                     <Link
-                      to={"/signup"}
+                      to={"/participants/" + currentParticipant.id}
                       className="badge badge-warning"
                     >
-                      Sign-up
+                      Edit
                     </Link>
 
                   </div>
                 ) : (
                   <div>
                     <br />
-                    <p>Please click on a Session to sign-up</p>
+                    <p>Please click on a Participant to edit</p>
                   </div>
                 )}
               </div>

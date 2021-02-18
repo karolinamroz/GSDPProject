@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import ParticipantDataService from "../services/participants.service";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
+
 
 export default class AddParticipant extends Component {
     constructor(props) {
@@ -12,6 +10,8 @@ export default class AddParticipant extends Component {
         this.onChangePhone = this.onChangePhone.bind(this);
         this.onChangeRole = this.onChangeRole.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
+        this.saveParticipant = this.saveParticipant.bind(this);
+        this.newParticipant = this.newParticipant.bind(this);
 
         this.state = {
             id: null,
@@ -19,7 +19,7 @@ export default class AddParticipant extends Component {
             email: "",
             phone: "",
             role: "",
-            password: "",
+            password: ""
         };
     }
 
@@ -59,7 +59,7 @@ export default class AddParticipant extends Component {
             email: this.state.email,
             phone: this.state.phone,
             role: this.state.role,
-            password: this.state.pasword
+            password: this.state.password
         };
 
         ParticipantDataService.create(data)
@@ -91,73 +91,88 @@ export default class AddParticipant extends Component {
     }
 
     render() {
-        return (
-          <div className="col-md-12">
-            <div className="card card-container">
-              <img
-                src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                alt="profile-img"
-                className="profile-img-card"
-              />
-    
-              <Form>
-                  <div>
-                    <div className="form-group">
-                      <label htmlFor="username">Name</label>
-                      <Input
-                        type="text"
-                        className="form-control"
-                        name="username"
-                        value={this.state.name}
-                        onChange={this.onChangeName}
-                      />
-                    </div>
-
-                    <div className="form-group">
-                      <label htmlFor="password">Phone</label>
-                      <Input
-                        type="password"
-                        className="form-control"
-                        name="password"
-                        value={this.state.phone}
-                        onChange={this.onChangePhone}
-                      />
-                    </div>
-    
-                    <div className="form-group">
-                      <label htmlFor="email">Email</label>
-                      <Input
-                        type="text"
-                        className="form-control"
-                        name="email"
-                        value={this.state.email}
-                        onChange={this.onChangeEmail}
-                      />
-                    </div>
-    
-                    <div className="form-group">
-                      <label htmlFor="password">Password</label>
-                      <Input
-                        type="password"
-                        className="form-control"
-                        name="password"
-                        value={this.state.password}
-                        onChange={this.onChangePassword}
-                      />
-                    </div>
-    
-                    <div className="form-group">
-                      <button className="btn btn-primary btn-block">Sign Up</button>
-                    </div>
-                  </div>
-    
-                <CheckButton
-                  style={{ display: "none" }}
-                  onClick={this.saveParticipant}
-                />
-              </Form>
+      return (
+        <div className="submit-form">
+          {this.state.submitted ? (
+            <div>
+              <h4>You submitted successfully!</h4>
+              <button className="btn btn-success" onClick={this.newParticipant}>
+                Add
+              </button>
             </div>
-          </div>
-        );
-      }
+          ) : (
+            <div>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  required
+                  value={this.state.name}
+                  onChange={this.onChangeName}
+                  name="name"
+                />
+              </div>
+  
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  required
+                  value={this.state.email}
+                  onChange={this.onChangeEmail}
+                  name="email"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="type">Phone</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="phone"
+                  required
+                  value={this.state.phone}
+                  onChange={this.onChangePhone}
+                  name="phone"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="role">Role</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="role"
+                  required
+                  value={this.state.role}
+                  onChange={this.onChangeRole}
+                  name="role"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="password"
+                  required
+                  value={this.state.password}
+                  onChange={this.onChangePassword}
+                  name="password"
+                />
+              </div>
+  
+              <button onClick={this.saveParticipant} className="btn btn-success">
+                Submit
+              </button>
+            </div>
+          )}
+        </div>
+      );
+    }
 }

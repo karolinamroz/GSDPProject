@@ -22,7 +22,7 @@ class SessionDataService {
     }
 
     deleteAll() {
-        return http.delete(`/sessions`);
+        return http.delete("/sessions");
     }
 
     findBySubject(subject) {

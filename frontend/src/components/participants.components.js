@@ -7,14 +7,19 @@ export default class Participant extends Component {
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeEmail = this.onChangeEmail.bind(this);
         this.onChangePhone = this.onChangePhone.bind(this);
+        this.onChangeRole = this.onChangeRole.bind(this);
+        this.onChangePassword = this.onChangePassword.bind(this);
+        this.getParticipant = this.getParticipant.bind(this);
+        this.updateParticipant = this.updateParticipant.bind(this);
+        this.deleteParticipant = this.deleteParticipant.bind(this);
 
         this.state = {
             id: null,
             name: "",
             email: "",
             phone: "",
-
-            submitted: false
+            role: "",
+            password: ""
         };
     }
 
@@ -36,11 +41,25 @@ export default class Participant extends Component {
         });
     }
 
+    onChangeRole(e) {
+      this.setState({
+          role: e.target.value
+      });
+  }
+
+  onChangePassword(e) {
+      this.setState({
+          password: e.target.value
+      });
+  }
+
     saveParticipant() {
         var data = {
             name: this.state.name,
             email: this.state.email,
-            phone: this.state.phone
+            phone: this.state.phone,
+            role: this.state.role,
+            password: this.state.password
         };
 
         ParticipantsDataService.create(data)
@@ -50,6 +69,8 @@ export default class Participant extends Component {
                 name: response.data.name,
                 email: response.data.email,
                 phone: response.data.phone,
+                role: response.data.role,
+                password: response.data.password,
 
                 submitted: true
             });
@@ -60,16 +81,58 @@ export default class Participant extends Component {
         });
     }
 
+    getParticipant(id) {
+      ParticipantsDataService.get(id)
+      .then(response => {
+          this.setState({
+              currentParticipant: response.data
+          });
+          console.log(response.data);
+      })
+      .catch(e => {
+          console.log(e);
+      });
+  }
+
     newParticipant() {
         this.setState = ({
             id: null,
             name: "",
             email: "",
             phone: "",
+            role: "",
+            password: "",
 
             submitted: false
         });
     }
+
+    updateParticipant() {
+      ParticipantsDataService.update(
+          this.state.currentParticipant.id,
+          this.state.currentParticipant
+      )
+      .then(response => {
+          console.log(response.data);
+          this.setState({
+              message: "Participan's details have been updated successfully."
+          });
+      })
+      .catch(e => {
+          console.log(e);
+      });
+  }
+
+  deleteParticipant() {
+      ParticipantsDataService.delete(this.state.currentParticipant.id)
+      .then(response => {
+          console.log(response.data);
+          this.props.history.push('/participants')
+      })
+      .catch(e => {
+          console.log(e);
+      });
+  }
 
     render() {
         return (
@@ -121,6 +184,48 @@ export default class Participant extends Component {
                     name="phone"
                   />
                 </div>
+
+                <div className="form-group">
+                  <label htmlFor="role">Role</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="role"
+                    required
+                    value={this.state.role}
+                    onChange={this.onChangeRole}
+                    name="role"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="password">Password</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="password"
+                    required
+                    value={this.state.password}
+                    onChange={this.onChangePassword}
+                    name="password"
+                  />
+                </div>
+
+                <button
+                        className="badge badge-danger mr-2"
+                        onClick={this.deleteParticipant}
+                        >
+                            Delete
+                        </button>
+
+                        <button
+                        type="submit"
+                        className="badge badge-success"
+                        onClick={this.updateParticipant}
+                        >
+                            Update
+                        </button>
+                        <p>{this.state.message}</p>
     
                 <button onClick={this.saveParticipant} className="btn btn-success">
                   Submit your details

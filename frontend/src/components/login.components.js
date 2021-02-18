@@ -29,43 +29,6 @@ export default class Login extends Component {
         });
     }
 
-    saveParticipant() {
-        var data = {
-            name: this.state.name,
-            email: this.state.email,
-            phone: this.state.phone,
-            role: this.state.role,
-            password: this.state.pasword
-        };
-
-        ParticipantDataService.create(data)
-        .then(response => {
-            this.setState({
-                id: response.data.id,
-                name: response.data.name,
-                email: response.data.email,
-                phone: response.data.phone,
-                role: response.data.role,
-                password: response.data.password
-            });
-            console.log(response.data);
-        })
-        .catch(e => {
-            console.log(e);
-        });
-    }
-
-    newParticipant() {
-        this.setState = ({
-            id: null,
-            name: "",
-            email: "",
-            phone: "",
-            role: "",
-            password: ""
-        });
-    }
-
     render() {
         return (
           <div className="col-md-12">

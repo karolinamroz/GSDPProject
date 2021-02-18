@@ -13,12 +13,16 @@ class ParticipantsDataService {
         return http.post("/participants", data);
     }
 
+    update (id,data) {
+        return http.put(`participants/${id}`, data);
+    }
+
     delete(id) {
         return http.delete(`/participants/${id}`);
     }
 
     deleteAll() {
-        return http.delete(`/participants`);
+        return http.delete("/participants");
     }
 
     findByName(name) {
