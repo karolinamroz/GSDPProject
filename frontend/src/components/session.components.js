@@ -14,6 +14,7 @@ export default class Session extends Component {
         this.updatePublished = this.updatePublished.bind(this);
         this.updateSession = this.updateSession.bind(this);
         this.deleteSession = this.deleteSession.bind(this);
+        this.addParticipant = this.addParticipant(this);
 
         this.state = {
             currentSession: {
@@ -155,6 +156,8 @@ export default class Session extends Component {
             console.log(e);
         });
     }
+
+    addParticipant() {}
 
     deleteSession() {
         SessionDataService.delete(this.state.currentSession.id)

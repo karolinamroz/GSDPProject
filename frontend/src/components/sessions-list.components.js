@@ -189,10 +189,10 @@ export default class SessionsList extends Component {
                     </div>
       
                     <Link
-                      to={"/signup"}
+                      to={"/addparticipants"}
                       className="badge badge-warning"
                     >
-                      Sign-up
+                      Register
                     </Link>
 
                   </div>

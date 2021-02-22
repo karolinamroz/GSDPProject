@@ -14,43 +14,84 @@ export default class Participant extends Component {
         this.deleteParticipant = this.deleteParticipant.bind(this);
 
         this.state = {
-            id: null,
-            name: "",
-            email: "",
-            phone: "",
-            role: "",
-            password: ""
+          id: null,
+          name: "",
+          email: "",
+          phone: "",
+          role: "",
+          password: "",
+
+          done: false
+      };
+    }
+
+    componentDidMount() {
+      this.getParticipant(this.props.match.params.id);
+    }
+
+  onChangeName(e) {
+    const name = e.target.value;
+
+    this.setState(function(prevState) {
+        return {
+            currentParticipant: {
+                ...prevState.currentParticipant,
+                name: name
+            }
         };
-    }
-
-    onChangeName(e) {
-        this.setState({
-            name: e.target.value
-        });
-    }
-
-    onChangeEmail(e) {
-        this.setState({
-            email: e.target.value
-        });
-    }
-
-    onChangePhone(e) {
-        this.setState({
-            phone: e.target.value
-        });
-    }
-
-    onChangeRole(e) {
-      this.setState({
-          role: e.target.value
-      });
+    });
   }
 
+  onChangeEmail(e) {
+    const email = e.target.value;
+
+    this.setState(function(prevState) {
+        return {
+            currentParticipant: {
+                ...prevState.currentParticipant,
+                email: email
+            }
+        };
+    });
+  }
+
+   onChangePhone(e) {
+   const phone = e.target.value;
+
+    this.setState(function(prevState) {
+      return {
+          currentParticipant: {
+              ...prevState.currentParticipant,
+              phone: phone
+            }
+       };
+    });
+  }
+
+  onChangeRole(e) {
+    const role = e.target.value;
+
+    this.setState(function(prevState) {
+        return {
+            currentParticipant: {
+                ...prevState.currentParticipant,
+                role: role
+            }
+        };
+    });
+  } 
+
   onChangePassword(e) {
-      this.setState({
-          password: e.target.value
-      });
+    const password = e.target.value;
+
+    this.setState(function(prevState) {
+        return {
+            currentPassword: {
+                ...prevState.currentParticipant,
+                password: password
+            }
+        };
+    });
   }
 
     saveParticipant() {
@@ -135,6 +176,7 @@ export default class Participant extends Component {
   }
 
     render() {
+      const {currentParticipant} = this.state;
         return (
           <div className="submit-form">
             {this.state.submitted ? (
@@ -225,11 +267,12 @@ export default class Participant extends Component {
                         >
                             Update
                         </button>
-                        <p>{this.state.message}</p>
-    
+                        
+                    
                 <button onClick={this.saveParticipant} className="btn btn-success">
-                  Submit your details
+                  Submit 
                 </button>
+                
               </div>
             )}
           </div>

@@ -173,6 +173,7 @@ export default class ParticipantsList extends Component {
                   </div>
                 )}
               </div>
+              
             </div>
         );
     

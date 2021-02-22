@@ -28,6 +28,12 @@ class SessionDataService {
     findBySubject(subject) {
         return http.get(`/sessions?subjet=${subject}`);
     }
+
+    /*
+    addParticipant() {
+        return http.post
+    }
+    */
 }
 
 export default new SessionDataService();
