@@ -15,7 +15,8 @@ exports.create = (req, res) => {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
-        role: req.body.role
+        role: req.body.role,
+        password: req.body.role
     };
 
     Participant.create(participant)

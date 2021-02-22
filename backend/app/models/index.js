@@ -21,33 +21,18 @@ db.sequelize = sequelize;
 
 db.sessions = require("./session.model.js")(sequelize, Sequelize);
 db.participants = require("./participant.model.js")(sequelize, Sequelize);
-//db.user = require("./user.model.js")(sequelize, Sequelize);
-//db.role = require("./role.model.js")(sequelize, Sequelize);
-/*
+
+
 db.sessions.belongsToMany(db.participants, {
     through: "sessions_participants",
-    as: "sessions",
+    as: "participants",
     foreignkey: "session_id",
 });
 
 db.participants.belongsToMany(db.sessions, {
     through: "sessions_participants",
-    as: "participants",
+    as: "sessions",
     foreignKey: "participant_id",
 });
-
-db.role.belongToMany(db.user, {
-    through: "user_roles",
-    foreignKey: "roleId",
-    otherKey: "userId"
-});
-
-db.user.belongsToMany(db.role, {
-    through: "user_roles",
-    foreignKey: "userId",
-    otherKey: "roleId"
-});
-*/
-//db.ROLES = ["user", "admin", "moderator"];
 
 module.exports = db;
